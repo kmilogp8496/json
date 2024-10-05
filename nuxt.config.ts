@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: false },
   extends: ['@nuxt/ui-pro'],
-  modules: ['@nuxt/ui', '@nuxthub/core', '@nuxt/eslint', 'nuxt-auth-utils'],
+  modules: ['@nuxt/ui', '@nuxthub/core', '@nuxt/eslint', 'nuxt-auth-utils', '@vueuse/nuxt'],
   future: {
     compatibilityVersion: 4,
   },

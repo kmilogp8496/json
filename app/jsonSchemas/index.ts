@@ -43,3 +43,8 @@ export interface JSONSchema {
   oneOf?: JSONSchema[]
   not?: JSONSchema
 }
+
+export interface SchemaExample {
+  name: string
+  schema: JSONSchema
+}

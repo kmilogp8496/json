@@ -1,26 +1,23 @@
 <script lang="ts" setup>
-import type { JSONSchema } from '~/jsonSchemas';
+import type { SchemaExample } from '~/jsonSchemas'
+import examples from '~/jsonSchemas/examples.json'
+import { fakeGenerator, type Schema } from '~/utils/fakeGenerator'
 
-interface SchemaExample {
-  name: string
-  schema: object
-}
-
-const schema = ref<string>('')
+const schema = ref<string>(prettifyJson(examples[0]!.schema))
 const output = ref<string>('')
-const selectedExample = ref<SchemaExample | null>(null)
+const selectedExample = ref(examples[0])
 
-function updateSchemaFromExample(selected: SchemaExample | null): void {
+function updateSchemaFromExample(selected: SchemaExample) {
   if (selected) {
-    schema.value = JSON.stringify(selected.schema, null, 2)
+    schema.value = prettifyJson(selected.schema)
   }
 }
 
 async function generateJSON() {
   try {
-    const parsedSchema = JSON.parse(schema.value) as JSONSchema
-    const generatedData = generateFromSchema(parsedSchema)
-    output.value = JSON.stringify(generatedData, null, 2)
+    const parsedSchema = JSON.parse(schema.value) as Schema
+    const generatedData = await generateFromSchema(parsedSchema)
+    output.value = prettifyJson(generatedData as object)
   }
   catch (error) {
     if (error instanceof Error) {
@@ -32,8 +29,21 @@ async function generateJSON() {
   }
 }
 
-function generateFromSchema(_schema: JSONSchema) {
-  // ... (keep the existing generateFromSchema function)
+async function generateFromSchema(schema: Schema) {
+  const result = await fakeGenerator(schema)
+
+  return result
+}
+
+const clipboard = useClipboard()
+const toast = useToast()
+
+async function onCopyOuput() {
+  await clipboard.copy(output.value)
+  toast.add({
+    title: 'Copied',
+    description: 'Output copied to clipboard',
+  })
 }
 </script>
 
@@ -49,21 +59,19 @@ function generateFromSchema(_schema: JSONSchema) {
         </h2>
         <UTextarea
           v-model="schema"
-          :rows="10"
+          :rows="20"
           placeholder="Enter your JSON schema here..."
         />
-        <div class="mt-4">
-          <h3 class="text-lg font-semibold mb-2">
-            Example Schemas:
-          </h3>
-          <USelect
-            v-model="selectedExample"
-            :options="exampleSchemas"
-            option-attribute="name"
-            placeholder="Select an example schema"
-            @update:model-value="updateSchemaFromExample"
-          />
-        </div>
+        <h3 class="text-lg font-semibold mb-2">
+          Example Schemas:
+        </h3>
+        <USelectMenu
+          v-model="selectedExample"
+          :options="examples"
+          option-attribute="name"
+          placeholder="Select an example schema"
+          @update:model-value="updateSchemaFromExample"
+        />
       </div>
       <div>
         <h2 class="text-xl font-semibold mb-2">
@@ -71,17 +79,25 @@ function generateFromSchema(_schema: JSONSchema) {
         </h2>
         <UTextarea
           v-model="output"
-          :rows="10"
+          :rows="20"
           readonly
         />
       </div>
     </div>
-    <UButton
-      class="mt-4"
-      color="primary"
-      @click="generateJSON"
-    >
-      Generate
-    </UButton>
+    <div class="pt-4 flex justify-end gap-4">
+      <UButton
+        color="primary"
+        @click="generateJSON"
+      >
+        Generate
+      </UButton>
+      <UButton
+        color="primary"
+        icon="i-heroicons-clipboard-document"
+        @click="onCopyOuput"
+      >
+        Copy ouput
+      </UButton>
+    </div>
   </div>
 </template>

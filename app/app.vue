@@ -47,15 +47,6 @@
         <NuxtPage />
       </UCard>
     </UContainer>
+    <UNotifications />
   </div>
 </template>
-
-<script lang="ts" setup>
-// No additional logic needed in this component
-</script>
-
-<style>
-body {
-  background-color: #f3f4f6;
-}
-</style>
