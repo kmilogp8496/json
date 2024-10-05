@@ -1,0 +1,70 @@
+[
+  {
+    "name": "ComplexObject",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "age": { "type": "integer", "minimum": 0, "maximum": 120 },
+        "email": { "type": "string", "format": "email" },
+        "isActive": { "type": "boolean" },
+        "address": {
+          "type": "object",
+          "properties": {
+            "street": { "type": "string" },
+            "city": { "type": "string" },
+            "zipcode": { "type": "string", "pattern": "^[0-9]{5}$" }
+          },
+          "required": ["street", "city"]
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "required": ["id", "name", "email"]
+    }
+  },
+  {
+    "name": "NestedArrayObject",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "productId": { "type": "string" },
+              "quantity": { "type": "integer", "minimum": 1 },
+              "price": { "type": "number", "minimum": 0 }
+            },
+            "required": ["productId", "quantity"]
+          },
+          "minItems": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "shipped", "delivered", "cancelled"]
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 500
+          }
+        }
+      },
+      "required": ["title", "createdAt", "items"]
+    }
+  }
+]
