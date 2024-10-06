@@ -1,7 +1,8 @@
 <script lang="ts" setup>
+import { generateJsonData } from '~/api/json'
 import type { SchemaExample } from '~/jsonSchemas'
 import examples from '~/jsonSchemas/examples.json'
-import { fakeGenerator, type Schema } from '~/utils/fakeGenerator'
+import type { Schema } from '~~/@types/faker'
 
 const schema = ref<string>(prettifyJson(examples[0]!.schema))
 const output = ref<string>('')
@@ -17,9 +18,10 @@ async function generateJSON() {
   try {
     const parsedSchema = JSON.parse(schema.value) as Schema
     const generatedData = await generateFromSchema(parsedSchema)
-    output.value = prettifyJson(generatedData as object)
+    output.value = prettifyJson(generatedData)
   }
   catch (error) {
+    console.error('Error: ', error)
     if (error instanceof Error) {
       output.value = 'Invalid JSON Schema: ' + error.message
     }
@@ -30,20 +32,9 @@ async function generateJSON() {
 }
 
 async function generateFromSchema(schema: Schema) {
-  const result = await fakeGenerator(schema)
+  const { result } = await generateJsonData(schema)
 
   return result
-}
-
-const clipboard = useClipboard()
-const toast = useToast()
-
-async function onCopyOuput() {
-  await clipboard.copy(output.value)
-  toast.add({
-    title: 'Copied',
-    description: 'Output copied to clipboard',
-  })
 }
 </script>
 
@@ -52,17 +43,20 @@ async function onCopyOuput() {
     <h1 class="text-3xl font-bold mb-4">
       JSON Generate
     </h1>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
       <div>
         <h2 class="text-xl font-semibold mb-2">
           JSON Schema
         </h2>
-        <UTextarea
-          v-model="schema"
-          :rows="20"
-          placeholder="Enter your JSON schema here..."
-        />
-        <h3 class="text-lg font-semibold mb-2">
+        <ClientOnly>
+          <Editor
+            v-model="schema"
+            lang="json"
+          />
+        </ClientOnly>
+        <h3
+          class="text-lg font-semibold mb-2"
+        >
           Example Schemas:
         </h3>
         <USelectMenu
@@ -77,11 +71,7 @@ async function onCopyOuput() {
         <h2 class="text-xl font-semibold mb-2">
           Generated JSON
         </h2>
-        <UTextarea
-          v-model="output"
-          :rows="20"
-          readonly
-        />
+        <Output v-model="output" />
       </div>
     </div>
     <div class="pt-4 flex justify-end gap-4">
@@ -90,13 +80,6 @@ async function onCopyOuput() {
         @click="generateJSON"
       >
         Generate
-      </UButton>
-      <UButton
-        color="primary"
-        icon="i-heroicons-clipboard-document"
-        @click="onCopyOuput"
-      >
-        Copy ouput
       </UButton>
     </div>
   </div>

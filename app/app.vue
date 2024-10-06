@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UContainer>
+    <UContainer :ui="{ constrained: 'max-w-full' }">
       <UCard class="mt-4">
         <template #header>
           <nav class="flex justify-between items-center p-4">
@@ -34,12 +34,6 @@
                 variant="ghost"
               >
                 Generate
-              </UButton>
-              <UButton
-                to="/history"
-                variant="ghost"
-              >
-                History
               </UButton>
             </div>
           </nav>
