@@ -5,4 +5,5 @@ export default withNuxt().overrideRules({
   'vue/component-tags-order': ['error', {
     order: ['script', 'template', 'style'],
   }],
+  '@stylistic/block-spacing': 'off',
 })

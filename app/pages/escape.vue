@@ -46,13 +46,13 @@ async function escapeAndTrimJSON() {
         <h2 class="text-xl font-semibold mb-2">
           JSON Object
         </h2>
-        <Input v-model="input" />
+        <InputEditor v-model="input" />
       </div>
       <div>
         <h2 class="text-xl font-semibold mb-2">
           Output (Trimmed and Escaped)
         </h2>
-        <Output v-model="output" />
+        <OutputEditor v-model="output" />
       </div>
     </div>
     <template #footer>

@@ -64,13 +64,13 @@ async function generateFromSchema(schema: Schema) {
         <h2 class="text-xl font-semibold mb-2">
           JSON Schema
         </h2>
-        <Input v-model="schema" />
+        <InputEditor v-model="schema" />
       </div>
       <div>
         <h2 class="text-xl font-semibold mb-2">
           Generated JSON
         </h2>
-        <Output v-model="output" />
+        <OutputEditor v-model="output" />
       </div>
     </div>
     <template #footer>

@@ -5,7 +5,7 @@ useHead({
   titleTemplate: title => title ? `${title} - JSON Utilities` : 'JSON Utilities',
 })
 
-const links: (HeaderLink & {icon: string})[] = [
+const links: (HeaderLink & { icon: string })[] = [
   {
     label: 'JSON Generate',
     icon: 'i-carbon-schematics',

@@ -13,7 +13,7 @@ const toast = useToast()
 async function onCopy() {
   await clipboard.copy(content)
   toast.add({
-  title: 'Copied',
+    title: 'Copied',
     description: 'Content copied to clipboard',
   })
 }
