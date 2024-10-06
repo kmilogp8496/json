@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
   const body = await readRawBody(event)
 
   if (!body) {
-    return createError({
+    throw createError({
       statusCode: 400,
       statusMessage: 'Bad Request',
       message: 'Request body is required',
@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
     parsedBody = JSON.parse(body)
   }
   catch (error) {
-    return createError({
+    throw createError({
       statusCode: 400,
       statusMessage: 'Bad Request',
       message: 'Invalid JSON',
@@ -35,11 +35,11 @@ export default defineEventHandler(async (event) => {
     }
   }
   catch (error) {
-    console.error(error)
-    return createError({
+    const message = error instanceof Error ? error.message : 'An error occurred generating the JSON data'
+    throw createError({
       statusCode: 422,
       statusMessage: 'Bad Request',
-      message: 'Failed to generate fake data',
+      message: message,
       cause: error,
     })
   }

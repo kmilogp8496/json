@@ -12,7 +12,7 @@ const model = defineModel<string>({
   <div class="relative">
     <CopyToClipboard
       :content="model"
-      class="absolute top-0 right-0 z-10"
+      class="absolute top-0 left-0 z-10"
     />
     <ClientOnly>
       <LazyEditor

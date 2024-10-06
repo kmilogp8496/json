@@ -5,8 +5,14 @@ definePageMeta({
   keepalive: true,
 })
 
+useHead({
+  title: 'Minify',
+})
+
 const input = ref('')
 const output = ref('')
+
+const toast = useToast()
 
 async function minifyJSON() {
   try {
@@ -14,49 +20,48 @@ async function minifyJSON() {
     output.value = JSON.stringify(parsed)
   }
   catch (error) {
+    let message = 'An error occurred while minifying JSON'
     if (error instanceof Error) {
-      output.value = 'Invalid JSON: ' + error.message
+      message = error.message
     }
-    else {
-      output.value = 'An unknown error occurred'
-    }
+    toast.add({
+      title: 'Error',
+      description: message,
+      icon: 'i-heroicons-information-circle',
+      color: 'red',
+    })
   }
 }
 </script>
 
 <template>
-  <div>
-    <h1 class="text-3xl font-bold mb-4">
-      JSON Minify
-    </h1>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <UCard>
+    <template #header>
+      <h1 class="text-3xl">
+        JSON Minify
+      </h1>
+    </template>
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
       <div>
         <h2 class="text-xl font-semibold mb-2">
-          Input
+          JSON Object
         </h2>
-        <UTextarea
-          v-model="input"
-          :rows="10"
-          placeholder="Enter your JSON here..."
-        />
+        <Input v-model="input" />
       </div>
       <div>
         <h2 class="text-xl font-semibold mb-2">
           Output (Minified)
         </h2>
-        <UTextarea
-          v-model="output"
-          tabindex="-1"
-          :rows="10"
-          readonly
-        />
+        <Output v-model="output" />
       </div>
     </div>
-    <UButton
-      class="mt-4"
-      @click="minifyJSON"
-    >
-      Minify
-    </UButton>
-  </div>
+    <template #footer>
+      <UButton
+        color="primary"
+        @click="minifyJSON"
+      >
+        Minify
+      </UButton>
+    </template>
+  </UCard>
 </template>

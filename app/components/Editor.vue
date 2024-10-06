@@ -26,28 +26,35 @@ const highlighter = await createHighlighter({
   ],
 })
 
-monaco.languages.register({ id: 'json' })
-
-shikiToMonaco(highlighter, monaco)
-
 const container = useTemplateRef('container')
 
 const { theme } = useShikiTheme()
 
 onMounted(() => {
-  editor.value = monaco.editor.create(container.value!, {
-    value: modelValue,
-    language: lang,
-    theme: theme.value,
-    automaticLayout: true,
-    minimap: {
-      enabled: false,
-    },
-  })
+  if (import.meta.client) {
+    monaco.languages.register({ id: 'json' })
+    shikiToMonaco(highlighter, monaco)
 
-  editor.value.onDidChangeModelContent(() => {
-    emit('update:modelValue', editor.value!.getValue())
-  })
+    editor.value = monaco.editor.create(container.value!, {
+      value: modelValue,
+      language: lang,
+      theme: theme.value,
+      automaticLayout: true,
+      minimap: {
+        enabled: false,
+      },
+    })
+
+    editor.value.onDidChangeModelContent(() => {
+      emit('update:modelValue', editor.value!.getValue())
+    })
+  }
+})
+
+watch(theme, () => {
+  if (editor.value) {
+    monaco.editor.setTheme(theme.value)
+  }
 })
 
 watch(
