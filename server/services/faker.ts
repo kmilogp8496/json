@@ -1,6 +1,6 @@
 import { JSONSchemaFaker, type Schema } from 'json-schema-faker'
 import { faker } from '@faker-js/faker'
-import $RefParser from 'json-schema-ref-parser'
+import $RefParser from '@apidevtools/json-schema-ref-parser'
 import { JSONPath } from 'jsonpath-plus'
 import { setDependencies } from '~~/node_modules/json-schema-faker/dist/shared'
 
