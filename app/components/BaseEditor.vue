@@ -70,6 +70,6 @@ watch(
 <template>
   <div
     ref="container"
-    class="max-h-[700px] h-[700px]"
+    class="max-h-[600px] h-[600px]"
   />
 </template>
