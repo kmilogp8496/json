@@ -6,15 +6,15 @@ const { label, color } = defineProps<{
   color?: ButtonColor
 }>()
 
-const emit = defineEmits(['delete-content'])
+const emit = defineEmits<{ click: [Event] }>()
 </script>
 
 <template>
   <UButton
-    :color="color"
+    :color
     icon="i-heroicons-trash"
     variant="soft"
-    :label="label"
-    @click="emit('delete-content', '')"
+    :label
+    @click="(event) => emit('click', event)"
   />
 </template>

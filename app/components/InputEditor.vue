@@ -17,7 +17,7 @@ const model = defineModel<string>({
     <DeleteContent
       :content="model"
       class="absolute top-9 left-0 z-10"
-      @delete-content="model= $event"
+      @click="model = ''"
     />
     <ClientOnly>
       <LazyBaseEditor
