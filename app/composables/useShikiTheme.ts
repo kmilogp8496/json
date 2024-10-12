@@ -13,15 +13,18 @@ const excludedThemes: BuiltinTheme[] = [
 
 const filteredBundledThemes = Object.fromEntries(Object.entries(bundledThemes).filter(([theme]) => !excludedThemes.includes(theme as BuiltinTheme)))
 
-const themes = await Promise.all(Object.values(filteredBundledThemes).map(async theme => await theme().then(theme => theme.default as Required<ThemeRegistration>)))
-
 const defaultThemes = {
   light: 'github-light',
   dark: 'github-dark',
 } as const
 
-export const useShikiTheme = () => {
+let themes: Required<ThemeRegistration>[] = []
+
+export const useShikiTheme = async () => {
   const colorMode = useColorMode()
+  if (!themes.length) {
+    themes = await Promise.all(Object.values(filteredBundledThemes).map(async theme => await theme().then(theme => theme.default as Required<ThemeRegistration>)))
+  }
 
   const preferredTheme = useLocalStorage<BuiltinTheme>('preferred-theme', defaultThemes[colorMode.value as 'light' | 'dark'])
 

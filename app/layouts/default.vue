@@ -5,7 +5,7 @@ useHead({
   titleTemplate: title => title ? `${title} - JSON Utilities` : 'JSON Utilities',
 })
 
-const { preferredTheme, availableThemes } = useShikiTheme()
+const { preferredTheme, availableThemes } = await useShikiTheme()
 
 const router = useRouter()
 

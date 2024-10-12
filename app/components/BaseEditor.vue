@@ -15,7 +15,7 @@ const emit = defineEmits<{
 
 const editor = shallowRef<monaco.editor.IStandaloneCodeEditor | null>(null)
 
-const { preferredTheme, availableThemes } = useShikiTheme()
+const { preferredTheme, availableThemes } = await useShikiTheme()
 
 // Create the highlighter, it can be reused
 const highlighter = await createHighlighter({
