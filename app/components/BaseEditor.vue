@@ -15,20 +15,17 @@ const emit = defineEmits<{
 
 const editor = shallowRef<monaco.editor.IStandaloneCodeEditor | null>(null)
 
+const { preferredTheme, availableThemes } = useShikiTheme()
+
 // Create the highlighter, it can be reused
 const highlighter = await createHighlighter({
-  themes: [
-    'vitesse-dark',
-    'vitesse-light',
-  ],
+  themes: availableThemes.map(theme => theme.value),
   langs: [
     'json',
   ],
 })
 
 const container = useTemplateRef('container')
-
-const { theme } = useShikiTheme()
 
 onMounted(() => {
   if (import.meta.client) {
@@ -38,11 +35,14 @@ onMounted(() => {
     editor.value = monaco.editor.create(container.value!, {
       value: modelValue,
       language: lang,
-      theme: theme.value,
+      theme: preferredTheme.value,
       automaticLayout: true,
       minimap: {
         enabled: false,
       },
+      wordWrapColumn: 90,
+      wordWrap: 'wordWrapColumn',
+      wrappingIndent: 'same',
     })
 
     editor.value.onDidChangeModelContent(() => {
@@ -51,9 +51,9 @@ onMounted(() => {
   }
 })
 
-watch(theme, () => {
+watch(preferredTheme, () => {
   if (editor.value) {
-    monaco.editor.setTheme(theme.value)
+    monaco.editor.setTheme(preferredTheme.value)
   }
 })
 

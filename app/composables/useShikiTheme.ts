@@ -1,11 +1,31 @@
-import type { BuiltinTheme } from 'shiki'
+import type { BuiltinTheme, ThemeRegistration } from 'shiki'
+import { bundledThemes } from 'shiki'
+
+const excludedThemes: BuiltinTheme[] = [
+  'github-dark-default',
+  'github-dark-dimmed',
+  'github-dark-high-contrast',
+  'github-light',
+  'github-light-default',
+  'github-light-high-contrast',
+  'vesper',
+] as const
+
+const filteredBundledThemes = Object.fromEntries(Object.entries(bundledThemes).filter(([theme]) => !excludedThemes.includes(theme as BuiltinTheme)))
+
+const themes = await Promise.all(Object.values(filteredBundledThemes).map(async theme => await theme().then(theme => theme.default as Required<ThemeRegistration>)))
+
+const defaultThemes = {
+  light: 'github-light',
+  dark: 'github-dark',
+} as const
 
 export const useShikiTheme = () => {
   const colorMode = useColorMode()
 
-  const theme = computed<BuiltinTheme>(() => {
-    return colorMode.value === 'dark' ? 'vitesse-dark' : 'vitesse-light'
-  })
+  const preferredTheme = useLocalStorage<BuiltinTheme>('preferred-theme', defaultThemes[colorMode.value as 'light' | 'dark'])
 
-  return { theme }
+  const availableThemes = themes.map(theme => ({ label: theme.displayName, value: theme.name, type: theme.type }))
+
+  return { availableThemes, preferredTheme }
 }
