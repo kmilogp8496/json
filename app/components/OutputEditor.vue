@@ -14,6 +14,11 @@ const model = defineModel<string>({
       :content="model"
       class="absolute top-0 right-0 z-10"
     />
+    <DeleteContent
+      :content="model"
+      class="absolute top-9 right-0 z-10"
+      @delete-content="model= $event"
+    />
     <ClientOnly>
       <LazyBaseEditor
         v-model="model"
