@@ -1,7 +1,7 @@
 name: Deploy with NuxtHub CLI
 on:
-  push:
-    branches:
+  pull_request: 
+    branches: 
       - main
 jobs:
   build-and-deploy:
@@ -32,8 +32,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name:  Deploy with nuxthub
-        run: npx nuxthub deploy
+      - name: Deploy with nuxthub
+        run: npx nuxthub deploy --preview
         env:
           NUXT_HUB_PROJECT_KEY: ${{ secrets.NUXT_HUB_PROJECT_KEY}}
           NUXT_HUB_USER_TOKEN: ${{ secrets.NUXT_HUB_USER_TOKEN }}

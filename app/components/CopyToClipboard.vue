@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import type { ButtonColor } from '#ui/types'
 
-const { content } = defineProps<{
+const { content, color = 'primary' } = defineProps<{
   content: string
-  label?: string
   color?: ButtonColor
 }>()
 
@@ -22,9 +21,8 @@ async function onCopy() {
 <template>
   <UButton
     :color
-    icon="i-heroicons-clipboard-document"
     variant="soft"
-    :label
+    icon="i-heroicons-clipboard-document"
     @click="onCopy"
   />
 </template>
