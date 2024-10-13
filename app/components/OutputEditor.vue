@@ -9,15 +9,11 @@ const model = defineModel<string>({
 </script>
 
 <template>
-  <div class="relative">
-    <CopyToClipboard
+  <div class="relative min-h-[600px]">
+    <EditorToolbar
       :content="model"
-      class="absolute top-0 right-0 z-10"
-    />
-    <DeleteContent
-      :content="model"
-      class="absolute top-9 right-0 z-10"
-      @click="model = ''"
+      class="absolute top-0 left-0 z-10"
+      @clear="model = ''"
     />
     <ClientOnly>
       <LazyBaseEditor

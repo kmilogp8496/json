@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import type { ButtonColor } from '#ui/types'
 
-const { label, color } = defineProps<{
-  label?: string
+const { color = 'red' } = defineProps<{
   color?: ButtonColor
 }>()
 
@@ -14,7 +13,6 @@ const emit = defineEmits<{ click: [Event] }>()
     :color
     icon="i-heroicons-trash"
     variant="soft"
-    :label
     @click="(event) => emit('click', event)"
   />
 </template>
