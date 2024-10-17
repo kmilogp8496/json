@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { LazyBaseDiffEditor } from '#build/components'
+
 const { lang = 'json' } = defineProps<{
   lang?: string
-  linesToHighlight?: number[]
 }>()
 
 const model = defineModel<string>({
@@ -17,7 +18,7 @@ const model = defineModel<string>({
       @clear="model = ''"
     />
     <ClientOnly>
-      <LazyBaseEditor
+      <LazyBaseDiffEditor
         v-model="model"
         :lang
       />
