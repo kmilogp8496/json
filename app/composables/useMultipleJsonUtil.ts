@@ -1,23 +1,22 @@
-export const useMultipleJsonUtil = (handler: (firstValue: string, secondValue: string) => { output: string, numberOfLines: number[] }, {
+export const useMultipleJsonUtil = (handler: (firstValue: string, secondValue: string) => { original: string, modified: string }, {
   errorMessage = 'An error occurred while processing the JSON data.',
   firstInputRef = ref(''),
   secondInputRef = ref(''),
-  outputRef = ref(''),
+  outputRef = ref({
+    original: '',
+    modified: '' },
+  ),
 }) => {
   const firstInput = firstInputRef
   const secondInput = secondInputRef
   const output = outputRef
-  const numberOfLines = ref<number[]>([])
   const loading = ref(false)
   const toast = useToast()
 
   const handle = async () => {
     try {
       loading.value = true
-      const handlerOutput = handler(firstInput.value, secondInput.value)
-
-      output.value = handlerOutput.output
-      numberOfLines.value = handlerOutput.numberOfLines
+      output.value = handler(firstInput.value, secondInput.value)
     }
     catch (error) {
       let message = errorMessage
@@ -44,6 +43,5 @@ export const useMultipleJsonUtil = (handler: (firstValue: string, secondValue: s
     handle,
     loading,
     output,
-    numberOfLines,
   }
 }

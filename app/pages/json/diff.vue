@@ -10,14 +10,10 @@ useHead({
   title: 'Diff',
 })
 
-function handler(a: string, b: string): { output: string, numberOfLines: number[] } {
-  const firstInputNumberOfLines = a.split('\n').length
-  const secondInputNumberOfLines = b.split('\n').length
-  console.log(firstInputNumberOfLines, secondInputNumberOfLines)
-
+function handler(a: string, b: string): { original: string, modified: string } {
   return {
-    output: a,
-    numberOfLines: [1, 2],
+    original: a,
+    modified: b,
   }
 }
 </script>

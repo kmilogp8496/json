@@ -8,11 +8,11 @@ const { lang = 'json' } = defineProps<{
   lang?: string
 }>()
 
-const firstModel = defineModel<string>('firstMode', {
+const firstModel = defineModel<string>('original', {
   default: '',
 })
 
-const secondModel = defineModel<string>('secondModel', {
+const secondModel = defineModel<string>('modified', {
   default: '',
 })
 

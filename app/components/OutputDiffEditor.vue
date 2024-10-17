@@ -1,25 +1,23 @@
 <script setup lang="ts">
-import { LazyBaseDiffEditor } from '#build/components'
-
 const { lang = 'json' } = defineProps<{
   lang?: string
 }>()
 
-const model = defineModel<string>({
+const original = defineModel<string>('original', {
+  default: '',
+})
+
+const modified = defineModel<string>('modified', {
   default: '',
 })
 </script>
 
 <template>
   <div class="relative min-h-[600px]">
-    <EditorToolbar
-      :content="model"
-      class="absolute top-0 left-0 z-10"
-      @clear="model = ''"
-    />
     <ClientOnly>
       <LazyBaseDiffEditor
-        v-model="model"
+        :original
+        :modified
         :lang
       />
     </ClientOnly>

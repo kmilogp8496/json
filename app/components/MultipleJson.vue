@@ -5,7 +5,7 @@ const { errorMessage = 'Failed to transform JSON', handler } = defineProps<{
   secondInputTitle: string
   handlerTitle: string
   errorMessage?: string
-  handler: (firstValue: string, secondValue: string) => { output: string, numberOfLines: number[] }
+  handler: (firstValue: string, secondValue: string) => { original: string, modified: string }
 }>()
 
 const firstInput = defineModel<string>('firstInput', {
@@ -16,16 +16,19 @@ const secondInput = defineModel<string>('secondInput', {
   default: '',
 })
 
-const output = defineModel<string>('output', {
-  default: '',
+const output = ref<{ original: string, modified: string }>({
+  original: '',
+  modified: '',
 })
 
-const { loading, handle, numberOfLines } = useMultipleJsonUtil(handler, {
+const { handle } = useMultipleJsonUtil(handler, {
   errorMessage,
   firstInputRef: firstInput,
   secondInputRef: secondInput,
   outputRef: output,
 })
+
+const computedHasOutput = computed(() => output.value.modified || output.value.original)
 </script>
 
 <template>
@@ -52,20 +55,19 @@ const { loading, handle, numberOfLines } = useMultipleJsonUtil(handler, {
     </div>
     <template #footer>
       <UButton
-        :loading
         color="primary"
         @click="handle"
       >
         {{ handlerTitle }}
       </UButton>
     </template>
-    <div v-if="output">
+    <div v-if="computedHasOutput">
       <h2 class="text-xl font-semibold mb-2">
         Resultado
       </h2>
-      <OutputEditor
-        v-model="output"
-        :lines-to-highlight="numberOfLines"
+      <OutputDiffEditor
+        v-model:original="output.original"
+        v-model:modified="output.modified"
       />
     </div>
   </UCard>
