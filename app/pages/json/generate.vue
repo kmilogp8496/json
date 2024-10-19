@@ -45,16 +45,16 @@ watch(selectedSchema, () => {
     handler-title="Generate"
     :handler
   >
-    <template #top>
-      <div class="p-4 flex justify-end">
-        <UFormGroup label="Select an example Schema">
-          <USelectMenu
-            v-model="selectedSchema"
-            :options="examples"
-            option-attribute="name"
-          />
-        </UFormGroup>
-      </div>
+    <template #actions>
+      <UBadge variant="soft">
+        Examples
+      </UBadge>
+      <USelectMenu
+        v-model="selectedSchema"
+        size="md"
+        :options="examples"
+        option-attribute="name"
+      />
     </template>
   </JsonTransform>
 </template>

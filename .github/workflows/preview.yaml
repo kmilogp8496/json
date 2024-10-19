@@ -1,7 +1,7 @@
 name: Deploy with NuxtHub CLI
 on:
-  pull_request: 
-    branches: 
+  pull_request:
+    branches:
       - main
 jobs:
   build-and-deploy:

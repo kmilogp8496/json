@@ -26,9 +26,21 @@ const { loading, handle } = useJsonUtil(handler, {
 <template>
   <UCard>
     <template #header>
-      <h1 class="text-3xl">
-        {{ title }}
-      </h1>
+      <div class="flex justify-between">
+        <h1 class="text-3xl">
+          {{ title }}
+        </h1>
+        <div class="inline-flex items-center gap-4">
+          <slot name="actions" />
+          <UButton
+            :loading
+            color="primary"
+            @click="handle"
+          >
+            {{ handlerTitle }}
+          </UButton>
+        </div>
+      </div>
     </template>
     <slot name="top" />
     <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
@@ -45,14 +57,5 @@ const { loading, handle } = useJsonUtil(handler, {
         <OutputEditor v-model="output" />
       </div>
     </div>
-    <template #footer>
-      <UButton
-        :loading
-        color="primary"
-        @click="handle"
-      >
-        {{ handlerTitle }}
-      </UButton>
-    </template>
   </UCard>
 </template>
