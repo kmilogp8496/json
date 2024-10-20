@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { lang = 'json' } = defineProps<{
   lang?: string
+  pathPrefix?: string
 }>()
 
 const model = defineModel<string>({
@@ -12,6 +13,7 @@ const model = defineModel<string>({
   <div class="relative min-h-[600px]">
     <EditorToolbar
       :content="model"
+      :path-prefix
       class="absolute top-0 left-0 z-10"
       @clear="model = ''"
     />

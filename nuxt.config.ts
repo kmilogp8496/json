@@ -1,9 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
-  devtools: { enabled: false },
   experimental: {
     clientFallback: true,
+  },
+  nitro: {
+    experimental: {
+      tasks: true,
+    },
   },
   extends: ['@nuxt/ui-pro'],
   modules: [
