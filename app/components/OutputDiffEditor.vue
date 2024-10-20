@@ -1,24 +1,23 @@
 <script setup lang="ts">
 const { lang = 'json' } = defineProps<{
   lang?: string
-  linesToHighlight?: number[]
 }>()
 
-const model = defineModel<string>({
+const original = defineModel<string>('original', {
+  default: '',
+})
+
+const modified = defineModel<string>('modified', {
   default: '',
 })
 </script>
 
 <template>
   <div class="relative min-h-[600px]">
-    <EditorToolbar
-      :content="model"
-      class="absolute top-0 left-0 z-10"
-      @clear="model = ''"
-    />
     <ClientOnly>
-      <LazyBaseEditor
-        v-model="model"
+      <LazyBaseDiffEditor
+        :original
+        :modified
         :lang
       />
     </ClientOnly>
