@@ -5,6 +5,8 @@ useHead({
   titleTemplate: title => title ? `${title} - JSON Utilities` : 'JSON Utilities',
 })
 
+const isLoginOpen = ref(false)
+
 const router = useRouter()
 
 const routes = router.getRoutes()
@@ -28,6 +30,15 @@ const links: (HeaderLink)[] = jsonRoutes.map(route => ({
   label: route.meta.title as string,
   to: route.path,
 }))
+
+provide('loginContext', {
+  openLogin: () => {
+    isLoginOpen.value = true
+  },
+  closeLogin: () => {
+    isLoginOpen.value = false
+  },
+})
 </script>
 
 <template>
@@ -48,7 +59,7 @@ const links: (HeaderLink)[] = jsonRoutes.map(route => ({
           to="https://github.com/kmilogp8496/json"
           target="_blank"
         />
-        <LoginButton />
+        <LoginButton v-model:open="isLoginOpen" />
       </template>
     </UHeader>
     <UMain class="flex flex-col">

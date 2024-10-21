@@ -9,20 +9,18 @@ export const storeJson = async (userId: number, fileName: string, content: strin
     where: eq(tables.userBlobs.path, path),
   })
 
-  return db.transaction(async (tx) => {
-    await hubBlob().put(path, content)
+  await hubBlob().put(path, new Blob([content]))
 
-    if (existingBlob) {
-      return (await tx.update(tables.userBlobs).set({
-        blob: content,
-      }).where(eq(tables.userBlobs.id, existingBlob.id)).returning()).at(0)!
-    }
-
-    return (await tx.insert(tables.userBlobs).values({
-      path,
-      userId,
+  if (existingBlob) {
+    return (await db.update(tables.userBlobs).set({
       blob: content,
-      blobType: 'json',
-    }).returning()).at(0)!
-  })
+    }).where(eq(tables.userBlobs.id, existingBlob.id)).returning()).at(0)!
+  }
+
+  return (await db.insert(tables.userBlobs).values({
+    path,
+    userId,
+    blob: content,
+    blobType: 'json',
+  }).returning()).at(0)!
 }

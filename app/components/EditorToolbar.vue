@@ -4,7 +4,9 @@ defineProps<{
   pathPrefix?: string
 }>()
 
-const emit = defineEmits<{ clear: [Event] }>()
+const emit = defineEmits<{
+  clear: [Event]
+}>()
 </script>
 
 <template>
@@ -14,7 +16,10 @@ const emit = defineEmits<{ clear: [Event] }>()
     class="absolute top-0 left-0 z-10"
   >
     <ToolbarCopyToClipboard :content />
-    <ToolbarSaveContent :path-prefix />
+    <ToolbarSaveContent
+      :path-prefix
+      :content
+    />
     <ToolbarDeleteContent @click="emit('clear', $event)" />
   </UButtonGroup>
 </template>
