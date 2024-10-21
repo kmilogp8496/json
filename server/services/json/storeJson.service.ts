@@ -13,14 +13,13 @@ export const storeJson = async (userId: number, fileName: string, content: strin
 
   if (existingBlob) {
     return (await db.update(tables.userBlobs).set({
-      blob: content,
+      updatedAt: new Date(),
     }).where(eq(tables.userBlobs.id, existingBlob.id)).returning()).at(0)!
   }
 
   return (await db.insert(tables.userBlobs).values({
     path,
     userId,
-    blob: content,
     blobType: 'json',
   }).returning()).at(0)!
 }

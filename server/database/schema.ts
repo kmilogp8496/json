@@ -14,7 +14,6 @@ export const userBlobs = sqliteTable('user_blobs', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   path: text('path').notNull(),
   userId: integer('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
-  blob: text('blob').notNull(),
   blobType: text('blob_type').notNull(),
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`CURRENT_TIMESTAMP`),
   updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().$onUpdateFn(() => new Date()),

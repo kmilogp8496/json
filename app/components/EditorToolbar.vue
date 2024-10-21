@@ -20,6 +20,10 @@ const emit = defineEmits<{
       :path-prefix
       :content
     />
+    <ToolbarLoadContent
+      :path-prefix
+      :content
+    />
     <ToolbarDeleteContent @click="emit('clear', $event)" />
   </UButtonGroup>
 </template>
