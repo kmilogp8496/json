@@ -1,0 +1,1 @@
+ALTER TABLE `user_blobs` ADD `updated_at` integer NOT NULL;

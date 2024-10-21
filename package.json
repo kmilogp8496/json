@@ -4,9 +4,11 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --remote",
     "generate": "nuxt generate",
     "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio",
     "deploy": "pnpx nuxthub deploy",
     "preview": "pnpx nuxthub preview",
     "lint": "eslint .",

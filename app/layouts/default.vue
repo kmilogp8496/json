@@ -5,7 +5,7 @@ useHead({
   titleTemplate: title => title ? `${title} - JSON Utilities` : 'JSON Utilities',
 })
 
-const { preferredTheme, availableThemes } = await useShikiTheme()
+const isLoginOpen = ref(false)
 
 const router = useRouter()
 
@@ -26,22 +26,19 @@ const footerLinks: FooterLink[] = [
   },
 ]
 
-const links: (HeaderLink)[] = [
-  ...jsonRoutes.map(route => ({
-    label: route.meta.title as string,
-    to: route.path,
-  })),
-  {
-    label: 'Github',
-    to: 'https://github.com/kmilogp8496/json',
-    target: '_blank',
+const links: (HeaderLink)[] = jsonRoutes.map(route => ({
+  label: route.meta.title as string,
+  to: route.path,
+}))
+
+provide('loginContext', {
+  openLogin: () => {
+    isLoginOpen.value = true
   },
-  {
-    label: 'Issue',
-    to: 'https://github.com/kmilogp8496/json/issues',
-    target: '_blank',
+  closeLogin: () => {
+    isLoginOpen.value = false
   },
-]
+})
 </script>
 
 <template>
@@ -51,28 +48,33 @@ const links: (HeaderLink)[] = [
       title="JSON Utilities"
     >
       <template #right>
-        <ClientOnly>
-          <USelectMenu
-            v-model="preferredTheme"
-            :options="availableThemes"
-            option-attribute="label"
-            value-attribute="value"
-            class="w-40"
-            size="xs"
-          />
-        </ClientOnly>
-        <UColorModeToggle />
+        <UColorModeButton
+          color="white"
+          variant="solid"
+        />
+        <UButton
+          icon="i-simple-icons-github"
+          color="white"
+          variant="solid"
+          to="https://github.com/kmilogp8496/json"
+          target="_blank"
+        />
+        <LoginButton v-model:open="isLoginOpen" />
       </template>
     </UHeader>
-    <UMain>
+    <UMain class="flex flex-col">
       <UContainer
-        :ui="{ constrained: 'max-w-[1900px]' }"
+        :ui="{ constrained: 'max-w-[1900px] w-full' }"
         class="p-4"
       >
         <NuxtPage />
       </UContainer>
+      <UFooter
+        :links="footerLinks"
+        class="mt-auto"
+      />
     </UMain>
-    <UFooter :links="footerLinks" />
     <UNotifications />
+    <UModals />
   </div>
 </template>

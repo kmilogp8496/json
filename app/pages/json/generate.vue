@@ -51,7 +51,7 @@ watch(selectedSchema, () => {
       </UBadge>
       <USelectMenu
         v-model="selectedSchema"
-        size="md"
+        size="sm"
         :options="examples"
         option-attribute="name"
       />

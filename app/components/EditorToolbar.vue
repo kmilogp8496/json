@@ -1,9 +1,12 @@
 <script setup lang="ts">
 defineProps<{
   content: string
+  pathPrefix?: string
 }>()
 
-const emit = defineEmits<{ clear: [Event] }>()
+const emit = defineEmits<{
+  clear: [Event]
+}>()
 </script>
 
 <template>
@@ -12,7 +15,11 @@ const emit = defineEmits<{ clear: [Event] }>()
     orientation="vertical"
     class="absolute top-0 left-0 z-10"
   >
-    <CopyToClipboard :content />
-    <DeleteContent @click="emit('clear', $event)" />
+    <ToolbarCopyToClipboard :content />
+    <ToolbarSaveContent
+      :path-prefix
+      :content
+    />
+    <ToolbarDeleteContent @click="emit('clear', $event)" />
   </UButtonGroup>
 </template>

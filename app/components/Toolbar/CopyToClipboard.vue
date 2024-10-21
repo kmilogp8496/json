@@ -19,10 +19,12 @@ async function onCopy() {
 </script>
 
 <template>
-  <UButton
-    :color
-    variant="soft"
-    icon="i-heroicons-clipboard-document"
-    @click="onCopy"
-  />
+  <UTooltip text="Copy to clipboard">
+    <UButton
+      :color
+      variant="soft"
+      icon="i-heroicons-clipboard-document"
+      @click="onCopy"
+    />
+  </UTooltip>
 </template>
