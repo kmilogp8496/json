@@ -18,31 +18,31 @@
   "dependencies": {
     "@nuxt/ui": "^2.18.7",
     "@nuxt/ui-pro": "^1.4.4",
-    "@nuxthub/core": "^0.7.34",
-    "@shikijs/monaco": "^1.22.0",
-    "@vueuse/core": "^11.1.0",
-    "@vueuse/nuxt": "^11.1.0",
-    "drizzle-orm": "^0.35.2",
+    "@nuxthub/core": "^0.8.4",
+    "@shikijs/monaco": "^1.22.2",
+    "@vueuse/core": "^11.2.0",
+    "@vueuse/nuxt": "^11.2.0",
+    "drizzle-orm": "^0.36.0",
     "monaco-editor-core": "^0.52.0",
     "nuxt": "^3.13.2",
-    "nuxt-auth-utils": "^0.4.4",
-    "shiki": "^1.22.0"
+    "nuxt-auth-utils": "^0.5.1",
+    "shiki": "^1.22.2"
   },
   "devDependencies": {
     "@apidevtools/json-schema-ref-parser": "^11.7.2",
-    "@faker-js/faker": "^9.0.3",
-    "@nuxt/eslint": "^0.6.0",
-    "@nuxt/eslint-config": "^0.6.0",
-    "drizzle-kit": "^0.26.2",
+    "@faker-js/faker": "^9.1.0",
+    "@nuxt/eslint": "^0.6.1",
+    "@nuxt/eslint-config": "^0.6.1",
+    "drizzle-kit": "^0.27.0",
     "eslint": "^9.13.0",
     "json-schema-faker": "^0.5.6",
     "jsonpath-plus": "^10.1.0",
-    "nuxthub": "^0.6.5",
+    "nuxthub": "^0.7.2",
     "typescript": "^5.6.3",
-    "vue-tsc": "^2.1.6",
-    "wrangler": "^3.81.0"
+    "vue-tsc": "^2.1.10",
+    "wrangler": "^3.84.1"
   },
-  "packageManager": "pnpm@9.12.2",
+  "packageManager": "pnpm@9.12.3",
   "pnpm": {
     "overrides": {
       "cookie@<0.7.0": ">=1.0.1"

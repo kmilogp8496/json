@@ -61,46 +61,55 @@ function convertMapToTree(map: TreeNode): FileAccordionItem[] {
   return result
 }
 
-watch(() => openModel.value, async (value) => {
-  if (value) {
-    try {
-      loading.value = true
-      const jsonList = await apiClient('/api/json/list')
+async function fetchFiles() {
+  try {
+    loading.value = true
+    const jsonList = await apiClient('/api/json/list')
 
-      const tree: TreeNode = new Map()
+    const tree: TreeNode = new Map()
 
-      for (const jsonListPath of jsonList) {
-        const splitPath = jsonListPath.path.split('/')
+    for (const jsonListPath of jsonList) {
+      const splitPath = jsonListPath.path.split('/')
 
-        let currentNode: TreeNode = tree
+      let currentNode: TreeNode = tree
 
-        for (let i = 0; i < splitPath.length; i++) {
-          const pathPart = splitPath[i]!
+      for (let i = 0; i < splitPath.length; i++) {
+        const pathPart = splitPath[i]!
 
-          if (!currentNode.has(pathPart)) {
-            if (i === (splitPath.length - 1)) {
-              currentNode.set(pathPart, jsonListPath.id)
-            }
-            else {
-              currentNode.set(pathPart, new Map())
-            }
+        if (!currentNode.has(pathPart)) {
+          if (i === (splitPath.length - 1)) {
+            currentNode.set(pathPart, jsonListPath.id)
           }
-
-          const nextNode = currentNode.get(pathPart)!
-
-          if (typeof nextNode === 'number') {
-            continue
+          else {
+            currentNode.set(pathPart, new Map())
           }
-
-          currentNode = nextNode
         }
-      }
 
-      files.value = convertMapToTree(tree)
+        const nextNode = currentNode.get(pathPart)!
+
+        if (typeof nextNode === 'number') {
+          continue
+        }
+
+        currentNode = nextNode
+      }
     }
-    finally {
-      loading.value = false
-    }
+
+    files.value = convertMapToTree(tree)
+  }
+  finally {
+    loading.value = false
+  }
+}
+
+function onLoad() {
+  emit('load', jsonContent.value)
+  openModel.value = false
+}
+
+watch(() => openModel.value, (value) => {
+  if (value) {
+    fetchFiles()
   }
 }, { immediate: true })
 
@@ -137,6 +146,7 @@ watch(() => currentTreeNode.value, async () => {
       <ToolbarAccordionTree
         :files
         :loading
+        @delete="fetchFiles"
       />
       <ClientOnly>
         <LazyBaseEditor
@@ -147,9 +157,20 @@ watch(() => currentTreeNode.value, async () => {
         />
       </ClientOnly>
       <template #footer>
-        <UButton @click="emit('load', jsonContent)">
-          Load
-        </UButton>
+        <div class="flex justify-end gap-4">
+          <UButton
+            color="gray"
+            @click="openModel = false"
+          >
+            Cancel
+          </UButton>
+          <UButton
+            :disabled="!jsonContent"
+            @click="onLoad"
+          >
+            Send to editor
+          </UButton>
+        </div>
       </template>
     </UCard>
   </UModal>

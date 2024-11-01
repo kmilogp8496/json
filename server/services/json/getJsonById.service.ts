@@ -14,11 +14,5 @@ export const getJsonById = async (userId: number, id: number) => {
     throw createError(blobNotFound)
   }
 
-  const blob = await hubBlob().get(userBlob.path)
-
-  if (!blob) {
-    throw createError(blobNotFound)
-  }
-
-  return blob.stream()
+  return userBlob
 }

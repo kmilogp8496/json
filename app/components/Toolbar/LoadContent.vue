@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import LoadContentModal from './LoadContentModal.vue'
 
+const emit = defineEmits<{
+  load: [string]
+}>()
+
 const { loggedIn } = useUserSession()
 
 const { openLogin } = useLoginContext()
@@ -21,7 +25,7 @@ const onOpenModal = () => {
 
   modal.open(LoadContentModal, {
     onLoad: (data) => {
-      console.log('load', data)
+      emit('load', data)
     },
   })
 }

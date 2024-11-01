@@ -17,10 +17,6 @@ const emit = defineEmits<{
   (event: 'delete', child: FileAccordionItem): void
 }>()
 
-const onDelete = (child: FileAccordionItem) => {
-  files.value = files.value.filter(item => item.id !== child.id)
-}
-
 const filesWithChildren = computed(() => files.value.filter(item => item.children))
 const filesWithoutChildren = computed(() => files.value.filter(item => !item.children))
 </script>
@@ -54,7 +50,7 @@ const filesWithoutChildren = computed(() => files.value.filter(item => !item.chi
         <div class="pl-2">
           <ToolbarAccordionTree
             :files="item.children"
-            @delete="onDelete(item)"
+            @delete="emit('delete', item)"
           />
         </div>
       </template>

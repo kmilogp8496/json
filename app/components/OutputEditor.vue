@@ -16,6 +16,7 @@ const model = defineModel<string>({
       :path-prefix
       class="absolute top-0 left-0 z-10"
       @clear="model = ''"
+      @load="model = $event"
     />
     <ClientOnly>
       <LazyBaseEditor

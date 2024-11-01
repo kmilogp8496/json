@@ -6,6 +6,7 @@ defineProps<{
 
 const emit = defineEmits<{
   clear: [Event]
+  load: [string]
 }>()
 </script>
 
@@ -23,6 +24,7 @@ const emit = defineEmits<{
     <ToolbarLoadContent
       :path-prefix
       :content
+      @load="emit('load', $event)"
     />
     <ToolbarDeleteContent @click="emit('clear', $event)" />
   </UButtonGroup>
