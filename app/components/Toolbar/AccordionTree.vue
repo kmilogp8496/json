@@ -19,6 +19,11 @@ const emit = defineEmits<{
 
 const filesWithChildren = computed(() => files.value.filter(item => item.children))
 const filesWithoutChildren = computed(() => files.value.filter(item => !item.children))
+
+function onDelete(child: FileAccordionItem) {
+  const index = files.value.findIndex(item => item.id === child.id)
+  files.value.splice(index, 1)
+}
 </script>
 
 <template>
@@ -32,10 +37,12 @@ const filesWithoutChildren = computed(() => files.value.filter(item => !item.chi
       </div>
     </template>
     <template v-if="filesWithoutChildren.length">
-      <div class="pl-2 pr-2 pb-2">
+      <div
+        v-for="file in filesWithoutChildren"
+        :key="file.id"
+        class="px-2 pb-2"
+      >
         <ToolbarAccordionFile
-          v-for="file in filesWithoutChildren"
-          :key="file.id"
           :item="file"
           @delete="emit('delete', file)"
         />
@@ -50,7 +57,7 @@ const filesWithoutChildren = computed(() => files.value.filter(item => !item.chi
         <div class="pl-2">
           <ToolbarAccordionTree
             :files="item.children"
-            @delete="emit('delete', item)"
+            @delete="onDelete(item)"
           />
         </div>
       </template>

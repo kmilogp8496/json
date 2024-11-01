@@ -1,5 +1,9 @@
 <script lang="ts" setup>
-import LoadContentModal from './LoadContentModal.vue'
+const LoadContentModal = import.meta.client
+  ? defineAsyncComponent(() => import('./LoadContentModal.vue'))
+  : defineComponent({
+    template: '<div>File tree</div>',
+  })
 
 const emit = defineEmits<{
   load: [string]

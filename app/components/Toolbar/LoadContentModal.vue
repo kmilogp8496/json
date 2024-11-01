@@ -146,16 +146,16 @@ watch(() => currentTreeNode.value, async () => {
       <ToolbarAccordionTree
         :files
         :loading
-        @delete="fetchFiles"
       />
-      <ClientOnly>
-        <LazyBaseEditor
-          v-show="!!jsonContent"
-          v-model="jsonContent"
-          height="h-[400px]"
-          lang="json"
-        />
-      </ClientOnly>
+      <div v-if="!!jsonContent">
+        <ClientOnly>
+          <LazyBaseEditor
+            v-model="jsonContent"
+            height="h-[400px]"
+            lang="json"
+          />
+        </ClientOnly>
+      </div>
       <template #footer>
         <div class="flex justify-end gap-4">
           <UButton
