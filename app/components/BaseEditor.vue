@@ -4,9 +4,10 @@ import * as monaco from 'monaco-editor-core'
 import { createHighlighter } from 'shiki'
 import { useShikiTheme } from '~/composables/useShikiTheme'
 
-const { modelValue, lang = 'json' } = defineProps<{
+const { modelValue, lang = 'json', height = 'h-[600px] max-h-[600px]' } = defineProps<{
   modelValue: string
   lang?: string
+  height?: string
 }>()
 
 const emit = defineEmits<{
@@ -70,6 +71,6 @@ watch(
 <template>
   <div
     ref="container"
-    class="max-h-[600px] h-[600px]"
+    :class="height"
   />
 </template>
