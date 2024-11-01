@@ -3,7 +3,7 @@ import type { H3Event } from 'h3'
 
 type ZodBodyParameter<T extends ZodRawShape> = ReturnType<typeof z.object<T>>
 
-export const useValidatedBody = async <T extends ZodRawShape>(event: H3Event, schema: ZodBodyParameter<T>) => {
+export const validatedBodyFromEvent = async <T extends ZodRawShape>(event: H3Event, schema: ZodBodyParameter<T>) => {
   const result = await readValidatedBody(event, schema.safeParse)
 
   if (!result.success) {

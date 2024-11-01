@@ -2,13 +2,7 @@
 import { ToolbarSaveContentModal } from '#components'
 import { apiClient } from '~/api/client'
 
-const { openLogin } = inject<{
-  openLogin: () => void
-  closeLogin: () => void
-}>('loginContext', {
-      openLogin: () => {},
-      closeLogin: () => {},
-    })
+const { openLogin } = useLoginContext()
 
 const { pathPrefix = '/', content } = defineProps<{
   pathPrefix?: string
@@ -17,6 +11,7 @@ const { pathPrefix = '/', content } = defineProps<{
 
 const modal = useModal()
 const toast = useToast()
+const loading = ref(false)
 
 const { loggedIn } = useUserSession()
 
@@ -33,21 +28,28 @@ const onOpenSaveContentModal = () => {
 
   modal.open(ToolbarSaveContentModal, {
     pathPrefix,
+    loading,
     async onSave({ name }) {
-      await apiClient('/api/json/store', {
-        method: 'POST',
-        body: {
-          name,
-          content,
-        },
-      })
+      try {
+        loading.value = true
+        await apiClient('/api/json/store', {
+          method: 'POST',
+          body: {
+            name,
+            content,
+          },
+        })
 
-      toast.add({
-        title: 'Saved',
-        description: 'Content saved successfully on path: ' + name,
-      })
+        toast.add({
+          title: 'Saved',
+          description: 'Content saved successfully on path: ' + name,
+        })
 
-      modal.close()
+        modal.close()
+      }
+      finally {
+        loading.value = false
+      }
     },
   })
 }
@@ -55,11 +57,6 @@ const onOpenSaveContentModal = () => {
 
 <template>
   <UTooltip text="Save content">
-    <UButton
-      color="amber"
-      icon="i-heroicons-bookmark"
-      variant="soft"
-      @click="onOpenSaveContentModal"
-    />
+    <ToolbarSaveContentButton @click="onOpenSaveContentModal" />
   </UTooltip>
 </template>

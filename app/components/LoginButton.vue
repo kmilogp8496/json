@@ -45,8 +45,8 @@ const interval = useIntervalFn(async () => {
   open.value = false
 }, 100)
 
-const onLogin = () => {
-  windowProxy.value = window.open('/auth/github', '_blank')
+const onLogin = (provider: 'github' | 'google') => {
+  windowProxy.value = window.open(`/auth/${provider}`, '_blank')
   interval.resume()
 }
 </script>
@@ -56,27 +56,40 @@ const onLogin = () => {
     <UButton
       color="white"
       variant="solid"
-      :icon="loggedIn ? 'i-heroicons-user' : 'i-heroicons-key'"
+      class="uppercase"
+      :icon="loggedIn ? '' : 'i-heroicons-lock-closed'"
+      :label="loggedIn ? user?.email.at(0) : ''"
     />
     <template #panel>
-      <div class="flex items-center gap-2 p-4">
-        <UBadge>
+      <div class="flex flex-col gap-2 p-4">
+        <UBadge
+          color="white"
+          class="w-min ml-auto"
+        >
           {{ loggedIn ? user?.email : 'Anonymous' }}
         </UBadge>
 
-        <UButton
-          v-if="!loggedIn"
-          color="white"
-          variant="solid"
-          class="ml-auto"
-          @click="onLogin"
-        >
-          Login with GitHub <UIcon name="i-simple-icons-github" />
-        </UButton>
+        <template v-if="!loggedIn">
+          <UButton
+            color="primary"
+            variant="solid"
+            @click="onLogin('github')"
+          >
+            Login with GitHub <UIcon name="i-simple-icons-github" />
+          </UButton>
+          <UButton
+            color="primary"
+            variant="solid"
+            class="ml-auto"
+            @click="onLogin('google')"
+          >
+            Login with Google <UIcon name="i-simple-icons-google" />
+          </UButton>
+        </template>
         <UButton
           v-else
           class="ml-auto"
-          color="white"
+          color="primary"
           variant="solid"
           @click="onLogout"
         >

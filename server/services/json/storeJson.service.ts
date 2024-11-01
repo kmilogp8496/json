@@ -9,7 +9,13 @@ export const storeJson = async (userId: number, fileName: string, content: strin
     where: eq(tables.userBlobs.path, path),
   })
 
-  await hubBlob().put(path, new Blob([content]))
+  const blob = new Blob([content])
+
+  ensureBlob(blob, {
+    maxSize: '1MB',
+  })
+
+  await hubBlob().put(path, blob)
 
   if (existingBlob) {
     return (await db.update(tables.userBlobs).set({

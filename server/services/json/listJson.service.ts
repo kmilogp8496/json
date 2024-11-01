@@ -11,6 +11,7 @@ export const listJsons = async (userId: number) => {
     columns: {
       path: true,
       updatedAt: true,
+      id: true,
     },
     orderBy: [desc(tables.userBlobs.updatedAt)],
   })

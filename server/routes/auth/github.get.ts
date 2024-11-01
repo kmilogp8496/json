@@ -1,3 +1,4 @@
+import { createUserIfNotExists } from '~~/server/services/user/createUserIfNotExists.service'
 import type { DB } from '~~/server/utils/drizzle'
 
 const githubSuccessHtml /** lang=html */
@@ -63,13 +64,12 @@ export default defineOAuthGitHubEventHandler({
   },
   // @ts-expect-error does not accept void as return type
   async onSuccess(event, { user }: { user: GithubUserSession, tokens: GithubTokensSession }) {
-    const db = useDb()
-    const userId = await getUserId(db, user)
+    const userCreated = await createUserIfNotExists({ email: user.email })
 
     await setUserSession(event, {
       user: {
         email: user.email,
-        id: userId,
+        id: userCreated.id,
       },
     })
 
@@ -83,19 +83,3 @@ export default defineOAuthGitHubEventHandler({
     })
   },
 })
-
-async function getUserId(db: DB, user: GithubUserSession) {
-  const existingUser = await db.query.users.findFirst({
-    where: eq(tables.users.email, user.email),
-  })
-
-  if (existingUser) {
-    return existingUser.id
-  }
-
-  const { id } = (await db.insert(tables.users).values({
-    email: user.email,
-  }).returning()).at(0)!
-
-  return id
-}

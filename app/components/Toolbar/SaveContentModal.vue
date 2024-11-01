@@ -4,6 +4,7 @@ import { z } from 'zod'
 
 const { pathPrefix } = defineProps<{
   pathPrefix: string
+  loading?: Ref<boolean>
 }>()
 
 const state = ref({
@@ -46,6 +47,7 @@ const onSaveContent = () => {
       <template #footer>
         <UButton
           class="ml-auto"
+          :loading="loading?.value"
           @click="onSaveContent"
         >
           Save

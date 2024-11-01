@@ -1,6 +1,6 @@
 import { z } from 'zod'
+import { validatedBodyFromEvent } from '~~/server/services/event/validateBodyFromEvent.service'
 import { storeJson } from '~~/server/services/json/storeJson.service'
-import { useValidatedBody } from '~~/server/utils/validation'
 
 export default defineEventHandler(async (event) => {
   const { user } = await requireUserSession(event)
@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const body = await useValidatedBody(event, z.object({
+  const body = await validatedBodyFromEvent(event, z.object({
     name: z.string(),
     content: z.string(),
   }))

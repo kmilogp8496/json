@@ -1,6 +1,11 @@
-export const buildJsonPath = (userId: number, fileName: string) => {
-  if (fileName.startsWith('/'))
-    return `${userId}${fileName}.json`
+export const buildJsonPath = (userId: number, givenFileName: string) => {
+  let fileName = givenFileName.trim()
+  if (!fileName.endsWith('.json')) {
+    fileName = `${fileName}.json`
+  }
 
-  return `${userId}/${fileName}.json`
+  if (fileName.startsWith('/'))
+    return `${userId}${fileName}`
+
+  return `${userId}/${fileName}`
 }
