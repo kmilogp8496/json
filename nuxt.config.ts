@@ -24,6 +24,9 @@ export default defineNuxtConfig({
     database: true,
     blob: true,
   },
+  typescript: {
+    typeCheck: true,
+  },
 
   eslint: {
     config: {
