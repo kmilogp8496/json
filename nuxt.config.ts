@@ -1,14 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2024-04-03',
-  experimental: {
-    clientFallback: true,
-  },
-  nitro: {
-    experimental: {
-      tasks: true,
-    },
-  },
   extends: ['@nuxt/ui-pro'],
   modules: [
     '@nuxt/ui',
@@ -19,6 +10,15 @@ export default defineNuxtConfig({
   ],
   future: {
     compatibilityVersion: 4,
+  },
+  experimental: {
+    clientFallback: true,
+  },
+  compatibilityDate: '2024-04-03',
+  nitro: {
+    experimental: {
+      tasks: true,
+    },
   },
   hub: {
     database: true,

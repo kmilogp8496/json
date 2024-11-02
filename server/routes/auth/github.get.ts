@@ -1,5 +1,4 @@
 import { createUserIfNotExists } from '~~/server/services/user/createUserIfNotExists.service'
-import type { DB } from '~~/server/utils/drizzle'
 
 const githubSuccessHtml /** lang=html */
 = `<!DOCTYPE html>

@@ -17,7 +17,7 @@ export const listJsons = async (userId: number) => {
   })
 
   for (let i = 0; i < result.length; i++) {
-    result[i].path = result[i].path.replace(`${userId}/`, '')
+    result[i]!.path = result[i]!.path.replace(`${userId}/`, '')
   }
 
   return result
