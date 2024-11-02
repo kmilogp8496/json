@@ -25,7 +25,7 @@ export default defineNuxtConfig({
     blob: true,
   },
   typescript: {
-    typeCheck: true,
+    typeCheck: process.env.NODE_ENV !== 'development',
   },
 
   eslint: {
