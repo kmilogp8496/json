@@ -7,7 +7,16 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     'nuxt-auth-utils',
     '@vueuse/nuxt',
+    '@nuxt/fonts',
+    '@nuxt/image',
+    // 'nuxt-og-image',
   ],
+  runtimeConfig: {
+    public: {
+      siteName: 'JSON Utilities',
+      siteDescription: 'The ultimate JSON toolkit',
+    },
+  },
   future: {
     compatibilityVersion: 4,
   },

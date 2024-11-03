@@ -2,6 +2,8 @@
 definePageMeta({
   keepalive: true,
   title: 'Minify',
+  icon: 'i-iconoir-arrow-reduce-tag',
+  description: 'Compress your JSON by removing unnecessary whitespace and formatting. This tool efficiently reduces JSON file size while maintaining data integrity, perfect for optimization and reducing payload sizes.',
 })
 
 useHead({

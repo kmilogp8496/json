@@ -52,7 +52,10 @@ const onLogin = (provider: 'github' | 'google') => {
 </script>
 
 <template>
-  <UPopover v-model:open="open">
+  <UPopover
+    v-model:open="open"
+    :popper="{ placement: 'bottom-start' }"
+  >
     <UButton
       color="white"
       variant="solid"

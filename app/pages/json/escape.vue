@@ -1,14 +1,20 @@
 <script lang="ts" setup>
 definePageMeta({
   keepalive: true,
-  title: 'Escape and Trim',
+  title: 'Escape',
+  icon: 'i-material-symbols-light-format-quote-outline-rounded',
+  description: 'Convert JSON into an escaped string format, perfect for when you need to include JSON as a string within another JSON object or in code. Automatically handles quotation marks and special characters.',
 })
 
 useHead({
   title: 'Escape and Trim',
+  
 })
 
 const handler = (value: string) => {
+  if (!value.startsWith('"') && !value.endsWith('"'))
+    value = `"${value}"`
+
   const cosa = {
     content: JSON.stringify(JSON.parse(value)),
   }

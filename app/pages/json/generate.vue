@@ -6,6 +6,8 @@ import exampleSchemas from '~/jsonSchemas/examples.json'
 definePageMeta({
   keepalive: true,
   title: 'Generate',
+  icon: 'i-heroicons-sparkles-20-solid',
+  description: 'A powerful JSON generator that creates sample data based on your schema definition. Choose from predefined examples or input your custom schema to generate realistic JSON data for testing and development purposes.',
 })
 
 useHead({

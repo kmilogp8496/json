@@ -1,6 +1,13 @@
 export default function useLoginContext() {
-  return inject('loginContext', {
-    openLogin: () => {},
-    closeLogin: () => {},
-  })
+  const injection = inject<{
+    openLogin: () => void
+    closeLogin: () => void
+    isLoginOpen: Ref<boolean>
+  }>('loginContext')
+
+  if (!injection) {
+    throw new Error('login context needs to be provided')
+  }
+
+  return injection
 }
