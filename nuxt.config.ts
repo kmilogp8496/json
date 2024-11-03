@@ -28,6 +28,9 @@ export default defineNuxtConfig({
     experimental: {
       tasks: true,
     },
+    prerender: {
+      routes: ['/'],
+    },
   },
   hub: {
     database: true,
