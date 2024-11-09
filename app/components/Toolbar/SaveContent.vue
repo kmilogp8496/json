@@ -16,6 +16,15 @@ const loading = ref(false)
 const { loggedIn } = useUserSession()
 
 const onOpenSaveContentModal = () => {
+  if (!content) {
+    toast.add({
+      title: 'No content',
+      description: 'There is no content to save',
+      icon: 'i-lucide-archive-x',
+    })
+    return
+  }
+
   if (!loggedIn.value) {
     openLogin()
     toast.add({
