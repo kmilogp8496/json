@@ -120,22 +120,26 @@ const testimonials = [
         <ULandingCard
           v-for="link in computedLinks"
           :key="link.to as string"
+          test-landing-card
           :title="link.label"
           :description="link.description"
           :icon="link.trailingIcon"
         />
         <ULandingCard
           title="Storage"
+          test-landing-card
           description="Store your JSON data in the cloud associated with your github or gmail account. You can store, delete and load your JSON data so you can save your work and come back later."
           icon="i-heroicons-cloud"
         />
         <ULandingCard
           title="Customizable UI"
+          test-landing-card
           description="Customize the UI to your liking. You can use your preferred themes and colors. Also available in dark/light mode."
           icon="i-gridicons-customize"
         />
         <ULandingCard
           title="Open Source"
+          test-landing-card
           icon="i-vscode-icons-file-type-nuxt"
           description="You can clone and host this application on your own infrastructure. It's all open source. Built with Nuxt and Vue."
         />
@@ -155,7 +159,10 @@ const testimonials = [
           :key="index"
           class="break-inside-avoid"
         >
-          <ULandingTestimonial v-bind="testimonial" />
+          <ULandingTestimonial
+            test-landing-testimonial
+            v-bind="testimonial"
+          />
         </div>
       </UPageColumns>
     </ULandingSection>

@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxt/fonts',
     '@nuxt/image',
+    '@nuxt/test-utils/module',
     // 'nuxt-og-image',
   ],
   runtimeConfig: {
@@ -37,7 +38,7 @@ export default defineNuxtConfig({
     blob: true,
   },
   typescript: {
-    typeCheck: true,
+    typeCheck: process.env.NODE_ENV !== 'development',
   },
 
   eslint: {

@@ -10,7 +10,10 @@ const model = defineModel<string>({
 </script>
 
 <template>
-  <div class="relative min-h-[600px]">
+  <div
+    class="relative min-h-[600px]"
+    data-testid="output-editor"
+  >
     <EditorToolbar
       :content="model"
       :path-prefix
