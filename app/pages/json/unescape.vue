@@ -11,8 +11,11 @@ useHead({
 })
 
 const handler = (value: string) => {
-  const content = `{"cosa":${value}}`
-  const parsed = JSON.parse(JSON.parse(content).cosa)
+  if (!value.startsWith('"') && !value.endsWith('"'))
+    value = `"${value}"`
+
+  const content = `{"content":${value}}`
+  const parsed = JSON.parse(JSON.parse(content).content)
   return prettifyJson(parsed)
 }
 </script>

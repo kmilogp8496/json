@@ -8,13 +8,9 @@ definePageMeta({
 
 useHead({
   title: 'Escape and Trim',
-  
 })
 
 const handler = (value: string) => {
-  if (!value.startsWith('"') && !value.endsWith('"'))
-    value = `"${value}"`
-
   const cosa = {
     content: JSON.stringify(JSON.parse(value)),
   }
