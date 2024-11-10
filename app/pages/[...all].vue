@@ -110,8 +110,6 @@ const testimonials = [
         provider="cloudflare"
         sizes="100vw xs:400px sm:600px md:750px lg:1200px"
       />
-
-      <div class="h-10 w-10 md:hidden bg-red-500" />
     </ULandingHero>
 
     <ULandingSection
