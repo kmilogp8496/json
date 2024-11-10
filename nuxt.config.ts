@@ -9,13 +9,23 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxt/fonts',
     '@nuxt/image',
-    '@nuxt/test-utils/module',
     // 'nuxt-og-image',
+    '@nuxt/test-utils/module',
+    '@nuxtjs/robots',
+    '@nuxtjs/sitemap',
+    'nuxt-schema-org',
+    'nuxt-link-checker',
+    'nuxt-seo-utils',
   ],
   runtimeConfig: {
     public: {
       siteName: 'JSON Utilities',
       siteDescription: 'The ultimate JSON toolkit',
+    },
+  },
+  routeRules: {
+    '/api/**': {
+      cors: true,
     },
   },
   future: {
@@ -30,7 +40,10 @@ export default defineNuxtConfig({
       tasks: true,
     },
     prerender: {
-      routes: ['/'],
+      routes: [
+        '/sitemap.xml',
+        '/robots.txt',
+      ],
     },
   },
   hub: {
@@ -47,6 +60,11 @@ export default defineNuxtConfig({
         quotes: 'single',
         blockSpacing: false,
       },
+    },
+  },
+  image: {
+    cloudflare: {
+      baseURL: 'https://json.kmilo.dev',
     },
   },
 })

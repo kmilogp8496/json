@@ -1,4 +1,4 @@
-<!-- <script setup lang="ts">
+<script setup lang="ts">
 /**
  * @credits Nuxt SEO <https://nuxtseo.com/>
  */
@@ -148,4 +148,4 @@ if (typeof props.icon === 'string' && !runtimeConfig.hasNuxtIcon && import.meta.
       </div>
     </div>
   </div>
-</template> -->
+</template>

@@ -1,9 +1,8 @@
-import { createPage, setup } from '@nuxt/test-utils/e2e'
+import { createPage } from '@nuxt/test-utils/e2e'
 import { describe, expect, it } from 'vitest'
+import { setup } from '~/tests/e2e/setup'
 
-await setup({
-  host: 'http://localhost:3000',
-})
+await setup()
 
 const page = await createPage('/json/minify')
 

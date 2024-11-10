@@ -60,6 +60,7 @@ const onLogin = (provider: 'github' | 'google') => {
       color="white"
       variant="solid"
       class="uppercase"
+      :aria-label="loggedIn ? 'Inspect session' : 'Login'"
       :icon="loggedIn ? '' : 'i-heroicons-lock-closed'"
       :label="loggedIn ? user?.email.at(0) : ''"
     />
@@ -76,6 +77,7 @@ const onLogin = (provider: 'github' | 'google') => {
           <UButton
             color="primary"
             variant="solid"
+            aria-label="Login with GitHub"
             @click="onLogin('github')"
           >
             Login with GitHub <UIcon name="i-simple-icons-github" />
@@ -83,7 +85,7 @@ const onLogin = (provider: 'github' | 'google') => {
           <UButton
             color="primary"
             variant="solid"
-            class="ml-auto"
+            aria-label="Login with Google"
             @click="onLogin('google')"
           >
             Login with Google <UIcon name="i-simple-icons-google" />
@@ -94,6 +96,7 @@ const onLogin = (provider: 'github' | 'google') => {
           class="ml-auto"
           color="primary"
           variant="solid"
+          aria-label="Logout"
           @click="onLogout"
         >
           Logout

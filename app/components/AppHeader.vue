@@ -32,6 +32,7 @@ defineProps<{
         icon="i-simple-icons-github"
         color="white"
         variant="solid"
+        aria-label="Github repository"
         to="https://github.com/kmilogp8496/json"
         target="_blank"
       />

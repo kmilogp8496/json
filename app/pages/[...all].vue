@@ -104,7 +104,10 @@ const testimonials = [
         alt="JSON Utilities"
         fit="contain"
         width="1200"
+        height="610"
+        quality="80"
         format="webp"
+        provider="cloudflare"
       />
     </ULandingHero>
 
