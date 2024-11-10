@@ -103,12 +103,15 @@ const testimonials = [
         src="/hero.png"
         alt="JSON Utilities"
         fit="contain"
+        quality="80"
         width="1200"
         height="610"
-        quality="80"
         format="webp"
         provider="cloudflare"
+        sizes="100vw xs:400px sm:600px md:750px lg:1200px"
       />
+
+      <div class="h-10 w-10 md:hidden bg-red-500" />
     </ULandingHero>
 
     <ULandingSection
