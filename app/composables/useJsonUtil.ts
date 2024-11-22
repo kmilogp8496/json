@@ -16,7 +16,7 @@ export const useJsonUtil = (handler: (value: string) => Promise<string> | string
     catch (error) {
       let message = errorMessage
 
-      if (error instanceof Error) {
+      if (error instanceof Error && !(error instanceof SyntaxError)) {
         message = error.message
       }
 

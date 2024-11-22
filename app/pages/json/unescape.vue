@@ -2,6 +2,8 @@
 definePageMeta({
   keepalive: true,
   title: 'Unescape',
+  icon: 'i-material-symbols-light-format-quote-off-outline-rounded',
+  description: 'Convert escaped JSON strings back into their original JSON format. This tool helps decode escaped JSON strings into properly formatted JSON objects, making them readable and usable again.',
 })
 
 useHead({
@@ -9,8 +11,11 @@ useHead({
 })
 
 const handler = (value: string) => {
-  const content = `{"cosa":${value}}`
-  const parsed = JSON.parse(JSON.parse(content).cosa)
+  if (!value.startsWith('"') && !value.endsWith('"'))
+    value = `"${value}"`
+
+  const content = `{"content":${value}}`
+  const parsed = JSON.parse(JSON.parse(content).content)
   return prettifyJson(parsed)
 }
 </script>

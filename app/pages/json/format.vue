@@ -2,6 +2,8 @@
 definePageMeta({
   keepalive: true,
   title: 'Format',
+  icon: 'i-fluent-mdl2-format-painter',
+  description: 'Transform unformatted JSON into a clean, properly indented structure. This formatter makes JSON data human-readable with consistent spacing and indentation, ideal for debugging and documentation.'
 })
 
 useHead({

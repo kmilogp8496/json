@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { lang = 'json' } = defineProps<{
   lang?: string
-  linesToHighlight?: number[]
+  pathPrefix?: string
 }>()
 
 const model = defineModel<string>({
@@ -10,11 +10,16 @@ const model = defineModel<string>({
 </script>
 
 <template>
-  <div class="relative min-h-[600px]">
+  <div
+    class="relative min-h-[600px]"
+    data-testid="output-editor"
+  >
     <EditorToolbar
       :content="model"
+      :path-prefix
       class="absolute top-0 left-0 z-10"
       @clear="model = ''"
+      @load="model = $event"
     />
     <ClientOnly>
       <LazyBaseEditor

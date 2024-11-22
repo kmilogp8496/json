@@ -1,0 +1,1 @@
+ALTER TABLE `user_blobs` DROP COLUMN `blob`;

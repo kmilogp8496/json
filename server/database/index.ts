@@ -1,6 +1,8 @@
-import { drizzle } from 'drizzle-orm/better-sqlite3'
-import Database from 'better-sqlite3'
+import { drizzle } from 'drizzle-orm/d1'
 import * as schema from './schema'
 
-const sqlite = new Database('db.sqlite')
-export const db = drizzle(sqlite, { schema })
+export const tables = schema
+
+export function useDrizzle() {
+  return drizzle(hubDatabase(), { schema })
+}
