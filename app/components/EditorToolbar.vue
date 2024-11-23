@@ -1,6 +1,7 @@
 <script setup lang="ts">
 defineProps<{
   content: string
+  contentDiff?: string
   pathPrefix?: string
 }>()
 
@@ -17,6 +18,12 @@ const emit = defineEmits<{
     class="absolute top-0 left-0 z-10"
   >
     <ToolbarCopyToClipboard :content />
+    <ToolbarCopyToClipboard
+      v-if="contentDiff !== undefined"
+      color="pink"
+      :content="contentDiff"
+      :tooltip-text="'Copy diff to clipboard'"
+    />
     <ToolbarSaveContent
       :path-prefix
       :content

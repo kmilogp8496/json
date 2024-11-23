@@ -8,13 +8,10 @@ const { lang = 'json' } = defineProps<{
   lang?: string
 }>()
 
-const firstModel = defineModel<string>('original', {
-  default: '',
-})
-
-const secondModel = defineModel<string>('modified', {
-  default: '',
-})
+const emit = defineEmits<{
+  'update:original': [string]
+  'update:modified': [string]
+}>()
 
 const editor = shallowRef<monaco.editor.IStandaloneDiffEditor | null>(null)
 
@@ -41,11 +38,22 @@ onMounted(() => {
       minimap: {
         enabled: false,
       },
-      enableSplitViewResizing: false,
+      enableSplitViewResizing: true,
       renderSideBySide: true,
       wordWrapColumn: 90,
       wordWrap: 'wordWrapColumn',
       wrappingIndent: 'same',
+      originalEditable: true,
+    })
+
+    editor.value.getOriginalEditor().onDidChangeModelContent(() => {
+      console.log(editor.value!.getOriginalEditor().getValue())
+
+      emit('update:original', editor.value!.getOriginalEditor().getValue())
+    })
+
+    editor.value.getModifiedEditor().onDidChangeModelContent(() => {
+      emit('update:modified', editor.value!.getModifiedEditor().getValue())
     })
   }
 })
@@ -62,8 +70,8 @@ watchEffect(() => {
   }
 
   editor.value.setModel({
-    original: monaco.editor.createModel(firstModel.value, lang),
-    modified: monaco.editor.createModel(secondModel.value, lang),
+    original: monaco.editor.createModel('', lang),
+    modified: monaco.editor.createModel('', lang),
   })
 })
 </script>

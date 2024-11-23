@@ -3,22 +3,24 @@ const { lang = 'json' } = defineProps<{
   lang?: string
 }>()
 
-const original = defineModel<string>('original', {
-  default: '',
-})
+const original = ref<string>('')
 
-const modified = defineModel<string>('modified', {
-  default: '',
-})
+const modified = ref<string>('')
 </script>
 
 <template>
   <div class="relative min-h-[600px]">
+    <EditorToolbar
+      :content="original"
+      :content-diff="modified"
+      @clear="original = ''"
+      @load="original = $event"
+    />
     <ClientOnly>
       <LazyBaseDiffEditor
-        :original
-        :modified
         :lang
+        @update:original="original = $event"
+        @update:modified="modified = $event"
       />
     </ClientOnly>
   </div>
