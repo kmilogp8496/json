@@ -4,6 +4,7 @@ import type { ButtonColor } from '#ui/types'
 const { content, color = 'primary' } = defineProps<{
   content: string
   color?: ButtonColor
+  tooltipText?: string
 }>()
 
 const clipboard = useClipboard()
@@ -19,7 +20,7 @@ async function onCopy() {
 </script>
 
 <template>
-  <UTooltip text="Copy to clipboard">
+  <UTooltip :text="tooltipText ?? 'Copy to clipboard'">
     <UButton
       :color
       variant="soft"
